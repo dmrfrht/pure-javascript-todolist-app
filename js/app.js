@@ -10,6 +10,7 @@ const clearBtn = document.querySelector("#clear-todos")
 function eventListeners() {
   form.addEventListener("submit", addTodo)
   document.addEventListener("DOMContentLoaded", loadAllTodos)
+  secondCardBody.addEventListener("click", deleteTodo)
 }
 
 eventListeners()
@@ -82,3 +83,11 @@ function loadAllTodos() {
     addTodoToUI(todo)
   })
 }
+
+function deleteTodo(e) {
+  if (e.target.className === "fa fa-remove") {
+    e.target.parentElement.parentElement.remove()
+    infoMessage("success", "Todo başarılı bir şekilde silindi 😢😢😢😢😢😢😢")  
+  }
+}
+
