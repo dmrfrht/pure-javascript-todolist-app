@@ -87,7 +87,18 @@ function loadAllTodos() {
 function deleteTodo(e) {
   if (e.target.className === "fa fa-remove") {
     e.target.parentElement.parentElement.remove()
+    deleteTodoFromLocalStorage(e.target.parentElement.parentElement.textContent)
     infoMessage("success", "Todo başarılı bir şekilde silindi 😢😢😢😢😢😢😢")  
   }
 }
 
+function deleteTodoFromLocalStorage(delTodo) {
+  let todos = getTodosFromLocalStorage()
+  todos.forEach(function(todo, index) {
+    if (todo === delTodo) {
+      todos.splice(index, 1)
+    }
+  })
+
+  localStorage.setItem("todos", JSON.stringify(todos))
+}
