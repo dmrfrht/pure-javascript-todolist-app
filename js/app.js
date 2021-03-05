@@ -13,6 +13,29 @@ function eventListeners() {
 
 eventListeners()
 
+function infoMessage(type, message) {
+  const alert = document.createElement("div")
+  alert.className = `alert alert-${type} mt-2`
+  alert.textContent = `${message}`
+
+  firstCardBody.appendChild(alert)
+
+  setTimeout(function() {
+    alert.remove()
+  }, 2000)
+}
+
+function getTodosFromLocalStorage() {
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = []
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos")) 
+  }
+
+  return todos
+}
+
 function addTodo(e) {
   const newTodo = todoInput.value.trim()
 
@@ -20,6 +43,7 @@ function addTodo(e) {
     infoMessage("danger", "Lütfen bir todo giriniz 😠😠😠😠")  
   } else {
     addTodoToUI(newTodo)
+    addTodoToLocalStorage(newTodo)
     infoMessage("success", "Todo başarılı bir şekilde eklendi 😻😻😻")  
   }
   
@@ -42,14 +66,11 @@ function addTodoToUI(newTodo) {
   todoInput.value = ""
 }
 
-function infoMessage(type, message) {
-  const alert = document.createElement("div")
-  alert.className = `alert alert-${type} mt-2`
-  alert.textContent = `${message}`
+function addTodoToLocalStorage(newTodo) {
+  let todos = getTodosFromLocalStorage()
 
-  firstCardBody.appendChild(alert)
+  todos.push(newTodo)
 
-  setTimeout(function() {
-    alert.remove()
-  }, 2000)
+  localStorage.setItem("todos", JSON.stringify(todos))
 }
+
