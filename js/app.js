@@ -15,7 +15,14 @@ eventListeners()
 
 function addTodo(e) {
   const newTodo = todoInput.value.trim()
-  addTodoToUI(newTodo)
+
+  if (newTodo === "") {
+    infoMessage("danger", "Lütfen bir todo giriniz 😠😠😠😠")  
+  } else {
+    addTodoToUI(newTodo)
+    infoMessage("success", "Todo başarılı bir şekilde eklendi 😻😻😻")  
+  }
+  
   e.preventDefault()
 }
 
@@ -33,4 +40,16 @@ function addTodoToUI(newTodo) {
 
   todoList.appendChild(listItem)
   todoInput.value = ""
+}
+
+function infoMessage(type, message) {
+  const alert = document.createElement("div")
+  alert.className = `alert alert-${type} mt-2`
+  alert.textContent = `${message}`
+
+  firstCardBody.appendChild(alert)
+
+  setTimeout(function() {
+    alert.remove()
+  }, 2000)
 }
