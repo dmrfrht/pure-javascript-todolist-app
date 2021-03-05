@@ -9,6 +9,7 @@ const clearBtn = document.querySelector("#clear-todos")
 
 function eventListeners() {
   form.addEventListener("submit", addTodo)
+  document.addEventListener("DOMContentLoaded", loadAllTodos)
 }
 
 eventListeners()
@@ -74,3 +75,10 @@ function addTodoToLocalStorage(newTodo) {
   localStorage.setItem("todos", JSON.stringify(todos))
 }
 
+function loadAllTodos() {
+  let todos = getTodosFromLocalStorage()
+
+  todos.forEach(function(todo) {
+    addTodoToUI(todo)
+  })
+}
