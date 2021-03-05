@@ -11,6 +11,7 @@ function eventListeners() {
   form.addEventListener("submit", addTodo)
   document.addEventListener("DOMContentLoaded", loadAllTodos)
   secondCardBody.addEventListener("click", deleteTodo)
+  filter.addEventListener("keyup", filterTodo)
 }
 
 eventListeners()
@@ -101,4 +102,20 @@ function deleteTodoFromLocalStorage(delTodo) {
   })
 
   localStorage.setItem("todos", JSON.stringify(todos))
+}
+
+function filterTodo(e) {
+  const filterValue = e.target.value.toLowerCase()
+  const listItems = document.querySelectorAll(".list-group-item")
+
+  listItems.forEach(function(listItem) {
+    const text = listItem.textContent.toLowerCase()
+
+    if (text.indexOf(filterValue) === -1) {
+      listItem.setAttribute("style", "display: none !important")
+    } else {
+      listItem.setAttribute("style", "display: block")
+    }
+  })
+
 }
